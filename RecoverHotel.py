@@ -1,3 +1,4 @@
+# coding=utf-8
 from googleplaces import GooglePlaces, types, lang  # DOC GOOGLEPLACES https://github.com/slimkrazy/python-google-places
 import os
 from GenEstadosPaises import recuperarEstado  # DOC GenEstadosPaises NULL
@@ -8,7 +9,7 @@ print "Ciudades Recuperadas: " + str(len(Estados))
 
 print "Recuperando Hoteles: "
 
-os.chdir('C:\\Users\\Ucol\\PycharmProjects\\PIHoteles\\Codigos')
+os.chdir('C:\\Users\\frahi\\PycharmProjects\\HotelesPI\\Codigos')
 
 # API_KEYS DE GOOGLEPLACES API
 YOUR_API_KEY = 'AIzaSyAssfkvPlQ7uBLbXZSHVW5kJZNWdwre7Is'
@@ -67,13 +68,16 @@ for i in trange(len(Estados)):
         # Recuperar los lugares que regreso la consulta
         for place in query_result.places:
 
-            urlfotos = ""
+            fotos=0
             try:
                 place.get_details()
                 try:
                     for photos in place.photos:
-                        photos.get(maxheight=500, maxwidth=500)
-                        urlfotos += photos.url.encode('utf-8') + ","
+                        if fotos <1:
+                            photos.get(maxheight=500, maxwidth=500)
+                            urlfotos = photos.url.encode('utf-8')
+                            fotos=1
+                        else: pass
                 except:
                     urlfotos = " "
 

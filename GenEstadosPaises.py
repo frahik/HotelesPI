@@ -1,7 +1,8 @@
+# coding=utf-8
 import os
 
 # Directorio a almacenar el codigo
-os.chdir('C:\\Users\\Ucol\\PycharmProjects\\PIHoteles\\Codigos')
+os.chdir('C:\\Users\\frahi\\PycharmProjects\\HotelesPI\\Codigos')
 
 pais = ["Mexico",
         "Austria", "Suiza", "Nevada", "Emiratos Arabes Unidos",
