@@ -11,6 +11,7 @@ counthabit = 1  # IDHabitación, Modificar en caso solo requerir empezar de un I
 
 archivo = open("Hoteles.txt", "r")
 habitacion = open("Habitacion.txt", "w")
+servicios = open("Servicio.sql","r").readlines()
 
 # Descripciones de las habitaciones
 tipo_habitacion = ["Habitacion Individual: Ideal para quienes viajan solos;",
@@ -22,14 +23,10 @@ tipo_habitacion = ["Habitacion Individual: Ideal para quienes viajan solos;",
                    "Suites: Conocidas por ser las mejores y mas lujosas habitaciones en cualquier hotel, cuentan con dos habitaciones dobles, 2 banos, salon y estancia;",
                    "Suite nupcial: Pensada para aquellas parejas recien casadas y que quieren disfrutar de una luna de miel con privacidad e intimidad;"]
 
-# Servicios que incluye cada habitación
-incluye = ["Aire acondicionado", "Servicio al cuarto", "Television por cable", "Jacuzzi",
-           "Vista al exterior", "Caja de seguridad", "Antiruido", "Wi-Fi"]
-
 # Calidad de la habitación
 estadohabit = ["Bueno", "Regular", "Excelente"]
 
-for lines in tqdm(archivo.readlines()):
+for lines in archivo.readlines():
     hotelid = lines.split("(")[1].split(",")[0]
 
     # Genera una Habitación de manera pseudoaleatoria
@@ -37,13 +34,14 @@ for lines in tqdm(archivo.readlines()):
 
     # Genera 5 Habitaciones por cada hotel
     for habit in range(5):
-        deschabitacion = str(random.sample(tipo_habitacion, 1)).split("['")[1].split("']")[
-            0]  # Selecciona una descripcion Pseudo-Aleatoria de la lista personas.
-        seleccion = str(random.sample(incluye, 4)).split("[")[1].split("]")[
-            0]  # Selecciona de manera Pseudo-Aleatoria tres cosas que "Incluye" la habitacion.
-        descripciones = deschabitacion + " Incluye " + seleccion.split("'")[1] + ", " + seleccion.split("'")[
-            3] + " y " + seleccion.split("'")[5] + "."  # Crea una frase de descripcion usando los dos anteriores.
+        seleccion = str(random.sample(servicios, 1))
+        deschabitacion = str(random.sample(tipo_habitacion, 1)).split("['")[1].split("']")[0]  # Selecciona una descripcion Pseudo-Aleatoria de la lista habitaciones.
+        lista = []
+        lista.append(seleccion.split("\"")[1])
+        lista.append(seleccion.split("\"")[3])
+        lista.append(seleccion.split("\"")[5])
 
+        descripciones = deschabitacion + " Incluye " + lista[0] + ", " + lista[1] + " y " + lista[2] + "."  # Crea una frase de descripcion usando los dos anteriores.
         if "Suite" in deschabitacion.split(":")[
             0]:  # Genera de manera "PseudoInteligente" un precio Pseudo-Aleatorio para las habitaciones.
             precio = random.randrange(1400, 2000, 9)
@@ -51,11 +49,9 @@ for lines in tqdm(archivo.readlines()):
             precio = random.randrange(200, 1600, 9)
 
         # Escribe en el archivo en formato «(idhabitacion,numero_habitacion, piso, descripcion, precio, calidad/estado_habitacion, tipo_habitacion, idhotel, servicios),»
-        habitacion.write("(" + str(counthabit) + "," + str(piso * 10 + habit + 1) + "," + str(piso)
-                         + ", \"" + descripciones + "\" , " + str(precio) + ", \""
-                         + str(random.sample(estadohabit, 1)).split("['")[1].split("']")[0] + "\", \""
-                         + str(deschabitacion.split(":")[0]) + "\"," + str(hotelid) + ", \"" + seleccion.split("'")[
-                             1] + ", " + seleccion.split("'")[3] + ", " + seleccion.split("'")[5] + ", " +
-                         seleccion.split("'")[7] + "\" ), \n")
+        #habitacion.write\
+        print("(" + str(counthabit) + ",\"" + '\", \"'.join((str(piso * 10 + habit + 1), str(piso),
+                        descripciones, str(precio), str(random.choice(estadohabit)), str(deschabitacion.split(":")[0]),
+                        str(hotelid), seleccion.split("(")[1].split(",")[0] ))+"\"),\n")
         counthabit += 1
 habitacion.close()
