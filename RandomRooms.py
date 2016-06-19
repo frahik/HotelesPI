@@ -51,7 +51,7 @@ for lines in archivo.readlines():
         # Escribe en el archivo en formato «(idhabitacion,numero_habitacion, piso, descripcion, precio, calidad/estado_habitacion, tipo_habitacion, idhotel, servicios),»
         #habitacion.write\
         print("(" + str(counthabit) + ",\"" + '\", \"'.join((str(piso * 10 + habit + 1), str(piso),
-                        descripciones, str(precio), str(random.choice(estadohabit)), str(deschabitacion.split(":")[0]),
+                        descripciones, str(precio), str(random.choice(estadohabit)), str(tipo_habitacion.index(deschabitacion.split(";")[0]+";")+1),
                         str(hotelid), seleccion.split("(")[1].split(",")[0] ))+"\"),\n")
         counthabit += 1
 habitacion.close()
