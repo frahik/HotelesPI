@@ -42,15 +42,15 @@ for lines in archivo.readlines():
         lista.append(seleccion.split("\"")[5])
 
         descripciones = deschabitacion + " Incluye " + lista[0] + ", " + lista[1] + " y " + lista[2] + "."  # Crea una frase de descripcion usando los dos anteriores.
-        if "Suite" in deschabitacion.split(":")[
-            0]:  # Genera de manera "PseudoInteligente" un precio Pseudo-Aleatorio para las habitaciones.
+        if "Suite" in deschabitacion.split(":")[0]:  # Genera de manera "PseudoInteligente" un precio Pseudo-Aleatorio para las habitaciones.
             precio = random.randrange(1400, 2000, 9)
+        elif tipo_habitacion.index(deschabitacion.split(";")[0]+";")<3:
+            precio = random.randrange(200, 800, 9)
         else:
-            precio = random.randrange(200, 1600, 9)
+            precio = random.randrange(700,1400,9)
 
         # Escribe en el archivo en formato «(idhabitacion,numero_habitacion, piso, descripcion, precio, calidad/estado_habitacion, tipo_habitacion, idhotel, servicios),»
-        #habitacion.write\
-        print("(" + str(counthabit) + ",\"" + '\", \"'.join((str(piso * 10 + habit + 1), str(piso),
+        habitacion.write("(" + str(counthabit) + ",\"" + '\", \"'.join((str(piso * 10 + habit + 1), str(piso),
                         descripciones, str(precio), str(random.choice(estadohabit)), str(tipo_habitacion.index(deschabitacion.split(";")[0]+";")+1),
                         str(hotelid), seleccion.split("(")[1].split(",")[0] ))+"\"),\n")
         counthabit += 1

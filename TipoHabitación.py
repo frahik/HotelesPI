@@ -11,4 +11,4 @@ tipo_habitacion = ["Habitacion Individual", "Habitacion doble de uso individual"
 archivoServicios = open("tipo_habitacion.sql", "w")
 archivoServicios.write("INSERT INTO `hotelera`.`tipohabitaciones` (`id`,`descripcion`) \nVALUES \n")
 for th in tipo_habitacion:
-    archivoServicios.write("(" + str(tipo_habitacion.index(th))+", \"" + th+"\"),\n")
+    archivoServicios.write("(" + str(tipo_habitacion.index(th)+1)+", \"" + th+"\"),\n")
